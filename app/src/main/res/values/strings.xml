@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MySharedPreferences</string>
+    <string name="checkBoxPreferenceSummary">CheckBox is: </string>
+    <string name="checkBoxStatusTextChecked">Checked</string>
+    <string name="checkBoxStatusTextUnchecked">Unchecked</string>
+    <string name="listPreferenceSummary">List preference value is: </string>
+    <string name="listPreferenceRadioButtonValue1">value1</string>
+    <string name="listPreferenceRadioButtonValue2">value2</string>
+    <string name="listPreferenceRadioButtonValue3">value3</string>
+    <string name="editTextSummary">EditText value is: </string>
+</resources>
