@@ -11,4 +11,6 @@
 
     <!--Settings Menu-->
     <string name="action_settings">Settings</string>
+    <!--Preference-->
+    <string name="pref_checkbox">Checkbox</string>
 </resources>
