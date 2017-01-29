@@ -8,4 +8,7 @@
     <string name="listPreferenceRadioButtonValue2">value2</string>
     <string name="listPreferenceRadioButtonValue3">value3</string>
     <string name="editTextSummary">EditText value is: </string>
+
+    <!--Settings Menu-->
+    <string name="action_settings">Settings</string>
 </resources>
