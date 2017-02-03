@@ -13,4 +13,9 @@
     <string name="action_settings">Settings</string>
     <!--Preference-->
     <string name="pref_checkbox">Checkbox</string>
+    <!-- Key name for storing bass in SharedPreferences -->
+    <string name="pref_checkbox_key" translatable="false">pref_checkbox</string>
+    <!-- Summary for Checkboxes -->
+    <string name="pref_show_true">Shown</string>
+    <string name="pref_show_false">Hidden</string>
 </resources>
