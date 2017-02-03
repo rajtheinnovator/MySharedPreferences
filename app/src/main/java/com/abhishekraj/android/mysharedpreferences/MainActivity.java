@@ -12,7 +12,7 @@ import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
     CheckBox checkBox;
     TextView checkBoxStatusText;
     RadioButton listPreferenceRadioButtonValue1;
@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         listPreferenceRadioButtonValue1 = (RadioButton) findViewById(R.id.listPreferenceRadioButtonValue1);
         listPreferenceRadioButtonValue2 = (RadioButton) findViewById(R.id.listPreferenceRadioButtonValue2);
         listPreferenceRadioButtonValue3 = (RadioButton) findViewById(R.id.listPreferenceRadioButtonValue3);
+        checkBoxStatusText = (TextView) findViewById(R.id.checkBoxStatusText);
         listPreferenceRadioButtonValue1.setClickable(false);
         listPreferenceRadioButtonValue2.setClickable(false);
         listPreferenceRadioButtonValue3.setClickable(false);
@@ -40,14 +41,18 @@ public class MainActivity extends AppCompatActivity {
         // Get all of the values from shared preferences to set it up
         // Get a reference to the default shared preferences from the PreferenceManager class
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        if (sharedPreferences.getBoolean(getResources().getString(R.string.pref_checkbox_key),
-                getResources().getBoolean(R.bool.pref_show_checkbox_default))) {
-            checkBox.setChecked(true);
-            checkBoxStatusText.setText(getResources().getString(R.string.checkBoxStatusTextChecked));
+
+        boolean checkBoxStatus = sharedPreferences.getBoolean(getString(R.string.pref_checkbox_key),
+                getResources().getBoolean(R.bool.pref_show_checkbox_default));
+
+        checkBox.setChecked(checkBoxStatus);
+        if (checkBoxStatus) {
+            checkBoxStatusText.setText(R.string.checkBoxStatusTextChecked);
         } else {
-            checkBox.setChecked(false);
-            checkBoxStatusText.setText(getResources().getString(R.string.checkBoxStatusTextUnchecked));
+            checkBoxStatusText.setText(R.string.checkBoxStatusTextUnchecked);
         }
+        //register the sharedPreferenceListener
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
 
     }
 
@@ -69,5 +74,29 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+
+
+        if (key.contains(getString(R.string.pref_checkbox_key))) {
+            boolean checkBoxStatus = sharedPreferences.getBoolean(getString(R.string.pref_checkbox_key),
+                    getResources().getBoolean(R.bool.pref_show_checkbox_default));
+            checkBox.setChecked(checkBoxStatus);
+            if (checkBoxStatus) {
+                checkBoxStatusText.setText(R.string.checkBoxStatusTextChecked);
+            } else {
+                checkBoxStatusText.setText(R.string.checkBoxStatusTextUnchecked);
+            }
+        }
+
+    }
+
+    //un-register the sharedPreferenceListener
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        PreferenceManager.getDefaultSharedPreferences(this).unregisterOnSharedPreferenceChangeListener(this);
     }
 }
