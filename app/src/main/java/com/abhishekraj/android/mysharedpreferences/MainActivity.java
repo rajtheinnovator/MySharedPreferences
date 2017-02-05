@@ -10,14 +10,17 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
     CheckBox checkBox;
     TextView checkBoxStatusText;
+    RadioGroup listPreferenceRadioGroup;
     RadioButton listPreferenceRadioButtonValue1;
     RadioButton listPreferenceRadioButtonValue2;
     RadioButton listPreferenceRadioButtonValue3;
+    String listPreferenceValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         setContentView(R.layout.activity_main);
         checkBox = (CheckBox) findViewById(R.id.checkBox);
         checkBox.setClickable(false);
+        listPreferenceRadioGroup = (RadioGroup) findViewById(R.id.listPreferenceRadioGroup);
         listPreferenceRadioButtonValue1 = (RadioButton) findViewById(R.id.listPreferenceRadioButtonValue1);
         listPreferenceRadioButtonValue2 = (RadioButton) findViewById(R.id.listPreferenceRadioButtonValue2);
         listPreferenceRadioButtonValue3 = (RadioButton) findViewById(R.id.listPreferenceRadioButtonValue3);
@@ -51,9 +55,22 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         } else {
             checkBoxStatusText.setText(R.string.checkBoxStatusTextUnchecked);
         }
+        loadListFromPreferences(sharedPreferences);
         //register the sharedPreferenceListener
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
 
+    }
+
+    private void loadListFromPreferences(SharedPreferences sharedPreferences) {
+        listPreferenceValue = sharedPreferences.getString(getString(R.string.pref_list_key),
+                getString(R.string.pref_value1_value));
+        if (listPreferenceValue.toString().equals(R.string.pref_value2_value)) {
+            listPreferenceRadioGroup.check(R.id.listPreferenceRadioButtonValue2);
+        } else if (listPreferenceValue.toString().equals(R.string.pref_value3_value)) {
+            listPreferenceRadioGroup.check(R.id.listPreferenceRadioButtonValue3);
+        } else {
+            listPreferenceRadioGroup.check(R.id.listPreferenceRadioButtonValue1);
+        }
     }
 
     @Override
@@ -78,8 +95,6 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-
-
         if (key.contains(getString(R.string.pref_checkbox_key))) {
             boolean checkBoxStatus = sharedPreferences.getBoolean(getString(R.string.pref_checkbox_key),
                     getResources().getBoolean(R.bool.pref_show_checkbox_default));
@@ -89,6 +104,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             } else {
                 checkBoxStatusText.setText(R.string.checkBoxStatusTextUnchecked);
             }
+        } else if (key.contains(getString(R.string.pref_list_key))) {
+            loadListFromPreferences(sharedPreferences);
         }
 
     }

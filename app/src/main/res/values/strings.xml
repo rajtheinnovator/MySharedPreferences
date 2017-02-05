@@ -11,11 +11,29 @@
 
     <!--Settings Menu-->
     <string name="action_settings">Settings</string>
-    <!--Preference-->
-    <string name="pref_checkbox">Checkbox</string>
+    <!--Preference title-->
+    <string name="pref_checkbox_title">Checkbox</string>
+    <string name="pref_list_title">List</string>
     <!-- Key name for storing bass in SharedPreferences -->
     <string name="pref_checkbox_key" translatable="false">pref_checkbox</string>
+    <string name="pref_list_key" translatable="false">pref_list</string>
+
     <!-- Summary for Checkboxes -->
     <string name="pref_show_true">Shown</string>
     <string name="pref_show_false">Hidden</string>
+
+    <!--Label for ListPreference-->
+    <string name="pref_list_label">List</string>
+    <!--Label for each values-->
+    <!--Label for value1-->
+    <string name="pref_list_value1_label">Value 1</string>
+    <!--Label for value1-->
+    <string name="pref_list_value2_label">Value 2</string>
+    <!--Label for value1-->
+    <string name="pref_list_value3_label">Value 3</string>
+
+    <!-- Key name for list preference in SharedPreferences -->
+    <string name="pref_value1_value" translatable="false">value1</string>
+    <string name="pref_value2_value" translatable="false">value2</string>
+    <string name="pref_value3_value" translatable="false">value3</string>
 </resources>

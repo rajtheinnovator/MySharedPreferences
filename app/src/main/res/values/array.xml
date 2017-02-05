@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Label ordering must match values -->
+    <array name="pref_list_option_labels">
+        <item>@string/pref_list_value1_label</item>
+        <item>@string/pref_list_value2_label</item>
+        <item>@string/pref_list_value3_label</item>
+    </array>
+
+    <array name="pref_list_option_values">
+        <item>@string/pref_value1_value</item>
+        <item>@string/pref_value2_value</item>
+        <item>@string/pref_value3_value</item>
+    </array>
+</resources>

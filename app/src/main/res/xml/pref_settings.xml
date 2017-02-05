@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <CheckBoxPreference
         android:defaultValue="@bool/pref_show_checkbox_default"
         android:key="@string/pref_checkbox_key"
         android:summaryOff="@string/pref_show_false"
         android:summaryOn="@string/pref_show_true"
-        android:title="@string/pref_checkbox" />
+        android:title="@string/pref_checkbox_title" />
+    <ListPreference
+        android:defaultValue="@string/pref_value1_value"
+        android:entries="@array/pref_list_option_labels"
+        android:entryValues="@array/pref_list_option_values"
+        android:key="@string/pref_list_key"
+        app:title="@string/pref_list_title" />
 </PreferenceScreen>
