@@ -17,6 +17,7 @@
     <!-- Key name for storing bass in SharedPreferences -->
     <string name="pref_checkbox_key" translatable="false">pref_checkbox</string>
     <string name="pref_list_key" translatable="false">pref_list</string>
+    <string name="pref_editTextPref_key" translatable="false">pref_editText</string>
 
     <!-- Summary for Checkboxes -->
     <string name="pref_show_true">Shown</string>
@@ -31,6 +32,11 @@
     <string name="pref_list_value2_label">Value 2</string>
     <!--Label for value1-->
     <string name="pref_list_value3_label">Value 3</string>
+
+    <!--Default Value for EditText Preference-->
+    <string name="pref_editTextPref_default" translatable="false">0</string>
+    <!--Label for EditText Preference-->
+    <string name="pref_editTextPref_label">EditText Label</string>
 
     <!-- Key name for list preference in SharedPreferences -->
     <string name="pref_value1_value" translatable="false">value1</string>

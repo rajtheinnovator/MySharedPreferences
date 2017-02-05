@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     RadioButton listPreferenceRadioButtonValue2;
     RadioButton listPreferenceRadioButtonValue3;
     String listPreferenceValue;
+    EditText editTextPreferenceEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +35,12 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         listPreferenceRadioButtonValue2 = (RadioButton) findViewById(R.id.listPreferenceRadioButtonValue2);
         listPreferenceRadioButtonValue3 = (RadioButton) findViewById(R.id.listPreferenceRadioButtonValue3);
         checkBoxStatusText = (TextView) findViewById(R.id.checkBoxStatusText);
+        editTextPreferenceEditText = (EditText) findViewById(R.id.editText);
         listPreferenceRadioButtonValue1.setClickable(false);
         listPreferenceRadioButtonValue2.setClickable(false);
         listPreferenceRadioButtonValue3.setClickable(false);
+        //make editText not clickable, referenced from the @link: http://stackoverflow.com/a/9171614/5770629
+        editTextPreferenceEditText.setKeyListener(null);
         setupSharedPreferences();
 
 
@@ -56,6 +61,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             checkBoxStatusText.setText(R.string.checkBoxStatusTextUnchecked);
         }
         loadListFromPreferences(sharedPreferences);
+        loadSizeFromSharedPreferences(sharedPreferences);
+
         //register the sharedPreferenceListener
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
 
@@ -71,6 +78,11 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         } else {
             listPreferenceRadioGroup.check(R.id.listPreferenceRadioButtonValue1);
         }
+    }
+    private void loadSizeFromSharedPreferences(SharedPreferences sharedPreferences) {
+        float minSize = Float.parseFloat(sharedPreferences.getString(getString(R.string.pref_editTextPref_key),
+                getString(R.string.pref_editTextPref_default)));
+        editTextPreferenceEditText.setText(String.valueOf(minSize));
     }
 
     @Override
