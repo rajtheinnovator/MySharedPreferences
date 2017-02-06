@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             checkBoxStatusText.setText(R.string.checkBoxStatusTextUnchecked);
         }
         loadListFromPreferences(sharedPreferences);
-        loadSizeFromSharedPreferences(sharedPreferences);
+        loadEditTextFloatValueFromSharedPreferences(sharedPreferences);
 
         //register the sharedPreferenceListener
         sharedPreferences.registerOnSharedPreferenceChangeListener(this);
@@ -71,18 +71,22 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
     private void loadListFromPreferences(SharedPreferences sharedPreferences) {
         listPreferenceValue = sharedPreferences.getString(getString(R.string.pref_list_key),
                 getString(R.string.pref_value1_value));
-        if (listPreferenceValue.toString().equals(R.string.pref_value2_value)) {
-            listPreferenceRadioGroup.check(R.id.listPreferenceRadioButtonValue2);
-        } else if (listPreferenceValue.toString().equals(R.string.pref_value3_value)) {
-            listPreferenceRadioGroup.check(R.id.listPreferenceRadioButtonValue3);
-        } else {
-            listPreferenceRadioGroup.check(R.id.listPreferenceRadioButtonValue1);
+        switch (listPreferenceValue){
+            case "value2":
+                listPreferenceRadioButtonValue2.setChecked(true);
+                break;
+            case "value3":
+                listPreferenceRadioButtonValue3.setChecked(true);
+                break;
+            case "value1":
+                listPreferenceRadioButtonValue1.setChecked(true);
+                break;
         }
     }
-    private void loadSizeFromSharedPreferences(SharedPreferences sharedPreferences) {
-        float minSize = Float.parseFloat(sharedPreferences.getString(getString(R.string.pref_editTextPref_key),
+    private void loadEditTextFloatValueFromSharedPreferences(SharedPreferences sharedPreferences) {
+        float minFloatValue = Float.parseFloat(sharedPreferences.getString(getString(R.string.pref_editTextPref_key),
                 getString(R.string.pref_editTextPref_default)));
-        editTextPreferenceEditText.setText(String.valueOf(minSize));
+        editTextPreferenceEditText.setText(String.valueOf(minFloatValue));
     }
 
     @Override
@@ -118,6 +122,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
             }
         } else if (key.contains(getString(R.string.pref_list_key))) {
             loadListFromPreferences(sharedPreferences);
+        } else if (key.contains(getString(R.string.pref_editTextPref_key))) {
+            loadEditTextFloatValueFromSharedPreferences(sharedPreferences);
         }
 
     }

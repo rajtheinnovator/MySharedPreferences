@@ -7,13 +7,14 @@ import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 import android.support.v7.preference.PreferenceScreen;
+import android.widget.Toast;
 
 /**
  * Created by ABHISHEK RAJ on 1/29/2017.
  */
 
 public class SettingsFragment extends PreferenceFragmentCompat  implements
-        SharedPreferences.OnSharedPreferenceChangeListener {
+        SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceChangeListener  {
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.pref_settings);
@@ -32,6 +33,9 @@ public class SettingsFragment extends PreferenceFragmentCompat  implements
                 setPreferenceSummary(p, value);
             }
         }
+
+        Preference preference = findPreference(getString(R.string.pref_editTextPref_key));
+        preference.setOnPreferenceChangeListener(this);
     }
 
     private void setPreferenceSummary(Preference preference, String value) {
@@ -73,4 +77,25 @@ public class SettingsFragment extends PreferenceFragmentCompat  implements
         }
     }
 
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+        Toast error = Toast.makeText(getContext(), "Please select a number between 0.1 and 10", Toast.LENGTH_SHORT);
+
+        String editTextPrefKey = getString(R.string.pref_editTextPref_key);
+        if (preference.getKey().equals(editTextPrefKey)) {
+            String stringInputValue = ((String) (newValue)).trim();
+            if (stringInputValue.equals("")) stringInputValue = "1";
+            try {
+                float inputFloatValue = Float.parseFloat(stringInputValue);
+                if (inputFloatValue > 10 || inputFloatValue <= 0) {
+                    error.show();
+                    return false;
+                }
+            } catch (NumberFormatException nfe) {
+                error.show();
+                return false;
+            }
+        }
+        return true;
+    }
 }
